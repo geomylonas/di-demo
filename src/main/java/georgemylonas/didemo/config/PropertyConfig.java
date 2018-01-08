@@ -1,6 +1,7 @@
 package georgemylonas.didemo.config;
 
 import georgemylonas.didemo.examplebeans.FakeDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,10 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 @PropertySource("classpath:datasource.properties")
 public class PropertyConfig {
+
+    @Autowired
+    org.springframework.core.env.Environment env;
+
 
     @Value("${georgemylonas.username}")
     String username;
@@ -23,7 +28,7 @@ public class PropertyConfig {
     @Bean
     public FakeDataSource fakeDataSource(){
         FakeDataSource fakeDataSource=new FakeDataSource();
-        fakeDataSource.setUsername(username);
+        fakeDataSource.setUsername(env.getProperty("USERNAME"));
         fakeDataSource.setPassword(password);
         fakeDataSource.setUrl(url);
         return fakeDataSource;
