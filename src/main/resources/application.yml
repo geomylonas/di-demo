@@ -1,0 +1,4 @@
+jms:
+  username: jms_username
+  password: some_jms_password
+  dburl: asdasdasd
